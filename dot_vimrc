@@ -7,6 +7,7 @@ Plug 'fatih/vim-go'
 " Or build from source code by using yarn: https://yarnpkg.com
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-rails'
+Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
 let g:coc_global_extensions = ['coc-solargraph']
@@ -167,3 +168,8 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 """""""" COC END
+
+
+"""""""" MY CONFIG
+set mouse=a
+""""""""
