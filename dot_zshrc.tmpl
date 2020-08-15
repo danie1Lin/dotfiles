@@ -7,7 +7,7 @@ fi
 
 # if you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-#source ~/.bash_profile
+# source ~/.bash_profile
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export TERM="xterm-256color"
@@ -19,11 +19,11 @@ setopt no_nomatch
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
 ######### THEME
-ZSH_THEME="powerlevel9k/powerlevel9k"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir dir_writable vcs vi_mode)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs history ram load time)
-DEFAULT_USER="ubuntu"
-POWERLEVEL9K_MODE='nerdfont-complete'
+#ZSH_THEME="powerlevel9k/powerlevel9k"
+#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir dir_writable vcs vi_mode)
+#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs history ram load time)
+#DEFAULT_USER="ubuntu"
+#POWERLEVEL9K_MODE='nerdfont-complete'
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -92,27 +92,30 @@ plugins=(
   zsh-navigation-tools
   vim-interaction
   tmux
-
+  {{- if eq .chezmoi.os "linux"}}
   ##### ubuntu
-  # ubuntu
-
+  ubuntu
+  {{- end}}
+  {{- if eq .chezmoi.os "darwin" }}
   ##### mac osx
   osx
   iterm2
   xcode
+  {{- end}}
 )
 
 source $ZSH/oh-my-zsh.sh
 
 
 # iterm2 intergration
+{{- if eq .chezmoi.os "darwin" }}
 source $HOME/.iterm2_shell_integration.zsh
 iterm2_print_user_vars() {
 iterm2_set_user_var awsProfile $AWS_PROFILE
 KUBECONTEXT=$(CTX=$(kubectl config current-context) 2> /dev/null;if [ $? -eq 0 ]; then echo $CTX;fi)
 iterm2_set_user_var kubeContext $KUBECONTEXT
 }
-
+{{- end}}
 #typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 # User configuration
 
@@ -143,14 +146,15 @@ iterm2_set_user_var kubeContext $KUBECONTEXT
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+
 alias ls="ls -a"
-
-
-
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+{{- if eq .chezmoi.os "darwin"}}
 export GOPATH=$HOME/go
 export PATH=$HOME/go/bin/:$PATH
 export PATH=/usr/local/opt/rabbitmq/sbin:$PATH
@@ -160,15 +164,14 @@ eval "$(direnv hook zsh)"
 
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 source $HOME/.gvm/scripts/gvm
-
-gvm use 1.14
+#set -x
+#gvm use 1.14
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '$HOME/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/google-cloud-sdk/path.zsh.inc'; fi
+#if [ -f '$HOME/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '$HOME/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/google-cloud-sdk/completion.zsh.inc'; fi
+#if [ -f '$HOME/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/google-cloud-sdk/completion.zsh.inc'; fi
 
-export PATH="/usr/local/opt/terraform@0.11/bin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
@@ -178,22 +181,9 @@ export NPM_PACKAGES="/usr/local/npm_packages"
 export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
 export PATH="$NPM_PACKAGES/bin:$PATH"
 
+export PATH="/usr/local/opt/terraform@0.11/bin:$PATH"
+{{- end}}
 
-
-# key bindings
-# 修正alt+left的行為
-#bindkey "^[^[[D" backward-word
-#bindkey "^[^[[C" forward-word
-#bindkey "^H" beginning-of-line
-#bindkey  "^E" end-of-line
-#bindkey '\e\eOD' backward-word
-#bindkey '\e\eOC' forward-word
-#
-#bindkey '^[[1;10D' beginning-of-line
-#bindkey '^[[1;10C' end-of-line
-#
-#bindkey '^[[1;4D' beginning-of-line
-#bindkey '^[[1;4C' end-of-line
 # rm prevent
 function trash() { mv "$@" ~/.Trash; }
 
@@ -219,10 +209,10 @@ function c() {
 }
 alias k="kubectl"
 
-source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+[[ -s /home/ubuntu/.autojump/etc/profile.d/autojump.sh ]] && source /home/ubuntu/.autojump/etc/profile.d/autojump.sh
+autoload -U compinit && compinit -u
+source ~/powerlevel10k/powerlevel10k.zsh-theme
 
