@@ -1,0 +1,37 @@
+{
+  "tsserver.npm": "/usr/local/bin/npm",
+  "solargraph.useBundler": false,
+  "solargraph.definitions": true,
+  "solargraph.promptDownload": true,
+  "solargraph.completion": true,
+  "solargraph.hover": true,
+  "solargraph.autoformat": true,
+  "solargraph.symbols": true,
+  "solargraph.references": true,
+  "solargraph.folding": true,
+  "solargraph.logLevel": "info",
+  "languageserver": {
+    "go": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod"],
+      "trace.server": "verbose",
+      "filetypes": ["go"]
+    }
+  },
+  "coc.preferences.formatOnInsertLeave": true,
+  "coc.preferences.formatOnType": true,
+  "yaml.format.enable": true,
+  "yaml.schemas": {
+    "url": "globPattern",
+    "Kubernetes": "globPattern",
+    "kedge": "globPattern"
+  },
+  "json.enable": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "json"
+  ]
+}
