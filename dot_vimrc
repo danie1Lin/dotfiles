@@ -8,9 +8,13 @@ Plug 'fatih/vim-go'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-rails'
 Plug 'jiangmiao/auto-pairs'
+Plug 'myusuf3/numbers.vim'
 call plug#end()
 
-let g:coc_global_extensions = ['coc-solargraph']
+
+"""""""" numbers.vim START
+let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree']
+""""""""
 
 """""""" COC START
 " TextEdit might fail if hidden is not set.
@@ -166,7 +170,6 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-
 """""""" COC END
 
 
