@@ -109,7 +109,7 @@ source $ZSH/oh-my-zsh.sh
 
 # iterm2 intergration
 {{- if eq .chezmoi.os "darwin" }}
-source $HOME/.iterm2_shell_integration.zsh
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 iterm2_print_user_vars() {
 iterm2_set_user_var awsProfile $AWS_PROFILE
 KUBECONTEXT=$(CTX=$(kubectl config current-context) 2> /dev/null;if [ $? -eq 0 ]; then echo $CTX;fi)
@@ -211,8 +211,7 @@ alias k="kubectl"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+[[ ! -f ~/powerlevel10k/powerlevel10k.zsh-theme ]] || source ~/powerlevel10k/powerlevel10k.zsh-theme
 [[ -s /home/ubuntu/.autojump/etc/profile.d/autojump.sh ]] && source /home/ubuntu/.autojump/etc/profile.d/autojump.sh
 autoload -U compinit && compinit -u
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-
+type rbenv &> /dev/null && eval "$(rbenv init -)"
