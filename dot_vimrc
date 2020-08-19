@@ -12,8 +12,25 @@ Plug 'myusuf3/numbers.vim'
 Plug 'kchmck/vim-coffee-script'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'edkolev/promptline.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'ntpeters/vim-better-whitespace'
 call plug#end()
 
+"""""""" airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
+let g:airline#extensions#hunks#enabled=0
+let g:airline#extensions#branch#enabled=1
+set laststatus=2
+set statusline+=%{FugitiveStatusline()}
+""""""""
+
+""""""""
+let g:better_whitespace_enabled=1
+""""""""
 
 """""""" numbers.vim START
 let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree']
