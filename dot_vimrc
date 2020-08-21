@@ -2,34 +2,54 @@
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
-
-Plug 'fatih/vim-go'
-" Or build from source code by using yarn: https://yarnpkg.com
-Plug 'tpope/vim-rails'
-Plug 'jiangmiao/auto-pairs'
-Plug 'kchmck/vim-coffee-script'
+" UI
 Plug 'vim-airline/vim-airline'
+Plug 'myusuf3/numbers.vim'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/promptline.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'airblade/vim-gitgutter'
+Plug 'nathanaelkane/vim-indent-guides'
+" Edit
 Plug 'preservim/nerdcommenter'
+Plug 'jiangmiao/auto-pairs'
 Plug 'easymotion/vim-easymotion'
+" Search
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+" Sidebar
+Plug 'preservim/nerdtree'
+" Git
+if has('nvim') || has('patch-8.0.902')
+  Plug 'mhinz/vim-signify'
+else
+  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
+endif
+Plug 'tpope/vim-fugitive'
+Plug 'liuchengxu/vista.vim'
+
+" Language
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-Plug 'liuchengxu/vista.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'preservim/nerdtree'
+""" Ruby
+Plug 'tpope/vim-rails'
+""" Go
+Plug 'fatih/vim-go'
+"""
+Plug 'kchmck/vim-coffee-script'
 call plug#end()
+
+set updatetime=100
 
 """""""" indent guides
 let g:indent_guides_enable_on_vim_startup = 1
 """"""""
+
+"""""""" numbers
+let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'vista']
+""""""""
+
 
 """""""" vista
 " Note: this option only works the LSP executives, doesn't work for `:Vista ctags`.
@@ -55,6 +75,7 @@ set statusline+=%{NearestMethodOrFunction()}
 " you can add the following line to your vimrc
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 """"""""
+
 
 """""""" vim lsp DO
 let g:lsp_log_verbose = 1
