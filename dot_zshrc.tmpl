@@ -181,6 +181,8 @@ export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
 export PATH="$NPM_PACKAGES/bin:$PATH"
 
 export PATH="/usr/local/opt/terraform@0.11/bin:$PATH"
+{{- else if eq .chezmoi.os "linux"}}
+export PATH=/snap/bin:$PATH
 {{- end}}
 
 # rm prevent
