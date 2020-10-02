@@ -12,6 +12,9 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'preservim/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'easymotion/vim-easymotion'
+Plug 'svermeulen/vim-yoink'
+Plug 'svermeulen/vim-cutlass'
+Plug 'svermeulen/vim-subversive'
 " Search
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -34,23 +37,91 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'lgranie/vim-lsp-bash'
 """ Ruby
+"plug 'autozimu/languageclient-neovim', {
+    "\ 'branch': 'next',
+    "\ 'do': 'bash install.sh',
+    "\ }
+
+""" setting
+Plug 'editorconfig/editorconfig-vim'
+Plug 'chiel92/vim-autoformat'
+""" ruby
 Plug 'tpope/vim-rails'
-""" Go
+""" go
 Plug 'fatih/vim-go'
 """
 Plug 'kchmck/vim-coffee-script'
+"""
+Plug 'liuchengxu/vim-which-key'
+
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+
 call plug#end()
 
 set updatetime=100
 
+"""""""" auto reload file
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+            \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
+
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+""""""""
+
 """""""" indent guides
 let g:indent_guides_enable_on_vim_startup = 1
+""""""""
+"""""""" cutlass
+nmap <c-n> <plug>(YoinkPostPasteSwapBack)
+nmap <c-p> <plug>(YoinkPostPasteSwapForward)
+
+nmap p <plug>(YoinkPaste_p)
+nmap P <plug>(YoinkPaste_P)
+""""""""
+"""""""" markdown
+filetype plugin on
+"Uncomment to override defaults:
+let g:instant_markdown_slow = 1
+"let g:instant_markdown_autostart = 0
+"let g:instant_markdown_open_to_the_world = 1
+"let g:instant_markdown_allow_unsafe_content = 1
+"let g:instant_markdown_allow_external_content = 0
+"let g:instant_markdown_mathjax = 1
+"let g:instant_markdown_logfile = '/tmp/instant_markdown.log'
+"let g:instant_markdown_autoscroll = 0
+"let g:instant_markdown_port = 8888
+"let g:instant_markdown_python = 1
 """"""""
 
 """""""" numbers
 let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'vista']
 """"""""
 
+"""""""" yoink
+nmap <c-n> <plug>(YoinkPostPasteSwapBack)
+nmap <c-p> <plug>(YoinkPostPasteSwapForward)
+
+nmap p <plug>(YoinkPaste_p)
+nmap P <plug>(YoinkPaste_P)
+let g:yoinkIncludeDeleteOperations=1
+nnoremap m d
+xnoremap m d
+
+nnoremap mm dd
+nnoremap M D
+nmap ,cs :let @*=expand("%")<CR>
+nmap ,cl :let @*=expand("%:p")<CR>
+""""""""
+
+"""""""" fzf
+nmap <expr> <c-p> yoink#canSwap() ? '<plug>(YoinkPostPasteSwapForward)' : ':Files<CR>'
+nnoremap <C-F> :Ag<space>
+""""""""
 
 """""""" vista
 " Note: this option only works the LSP executives, doesn't work for `:Vista ctags`.
@@ -77,7 +148,24 @@ set statusline+=%{NearestMethodOrFunction()}
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 """"""""
 
+"""""""" autozimu/LanguageClient-neovim
+"set hidden
 
+"let g:LanguageClient_serverCommands = {
+    "\ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    "\ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    "\ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    "\ 'python': ['/usr/local/bin/pyls'],
+    "\ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+    "\ }
+
+"" note that if you are using Plug mapping you should not use `noremap` mappings.
+"nmap <F5> <Plug>(lcn-menu)
+"" Or map each action separately
+"nmap <silent>K <Plug>(lcn-hover)
+"nmap <silent> gd <Plug>(lcn-definition)
+"nmap <silent> <F2> <Plug>(lcn-rename)
+""""""""
 """""""" vim lsp DO
 let g:lsp_log_verbose = 1
 let g:lsp_log_file = expand('~/vim-lsp.log')
@@ -294,9 +382,6 @@ let g:gitgutter_enabled = 1
 """""""" COC END
 
 
-"""""""" MY CONFIG
-set mouse=a
-""""""""
 
 """""""" easymotion DO
 " <Leader>f{char} to move to {char}
@@ -316,7 +401,6 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 """""""" easymotion END
 
 """""""" MY FUNC
-
 " Auto reload vimrc
 augroup myvimrc
     au!
@@ -340,3 +424,7 @@ let &cpo=s:cpo_save
 """""" Anti Reload gaurd
 
 """""""" MY FUNC
+"""""""" MY CONFIG
+set mouse=a
+set clipboard=unnamed 
+""""""""
