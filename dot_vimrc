@@ -15,6 +15,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'svermeulen/vim-yoink'
 Plug 'svermeulen/vim-cutlass'
 Plug 'svermeulen/vim-subversive'
+Plug 'rstacruz/sparkup'
+Plug 'tpope/vim-surround'
 " Search
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -31,6 +33,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'liuchengxu/vista.vim'
 
 " Language
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'branch': 'release/0.x',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -45,6 +51,9 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'chiel92/vim-autoformat'
 """ ruby
 Plug 'tpope/vim-rails'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-rake'
+
 """ go
 Plug 'fatih/vim-go'
 """
@@ -57,7 +66,7 @@ Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 call plug#end()
 
 set updatetime=100
-
+""""""""
 """""""" auto reload file
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
@@ -70,7 +79,6 @@ set updatetime=100
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 """"""""
-
 """""""" indent guides
 let g:indent_guides_enable_on_vim_startup = 1
 """"""""
@@ -118,7 +126,7 @@ nmap ,cl :let @*=expand("%:p")<CR>
 
 """""""" fzf
 nmap <expr> <c-p> yoink#canSwap() ? '<plug>(YoinkPostPasteSwapForward)' : ':Files<CR>'
-nnoremap <C-F> :Ag<space>
+"nnoremap <C-F> :Ag<space>
 """"""""
 
 """""""" vista
