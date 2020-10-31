@@ -20,6 +20,8 @@ Plug 'tpope/vim-surround'
 " Search
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'xolox/vim-session'
+Plug 'tpope/vim-repeat'
 
 " Sidebar
 Plug 'preservim/nerdtree'
@@ -33,10 +35,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'liuchengxu/vista.vim'
 
 " Language
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'branch': 'release/0.x',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+Plug 'Chiel92/vim-autoformat'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -48,7 +47,6 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 """ setting
 Plug 'editorconfig/editorconfig-vim'
-Plug 'chiel92/vim-autoformat'
 """ ruby
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-bundler'
@@ -58,15 +56,44 @@ Plug 'tpope/vim-rake'
 Plug 'fatih/vim-go'
 """
 Plug 'kchmck/vim-coffee-script'
-"""
+
+
+""" tools
+" operations
+Plug 'tpope/vim-unimpaired'
+Plug 'svermeulen/vim-subversive'
+Plug 'tpope/vim-abolish'
+Plug 'markonm/traces.vim'
+" 數字
+Plug 'glts/vim-magnum'
+Plug 'glts/vim-radical'
 Plug 'liuchengxu/vim-which-key'
-
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
-
+"""
 call plug#end()
 
 set updatetime=100
+
+"""""""" subversive
+let g:subversivePromptWithActualCommand=1
+nmap r <plug>(SubversiveSubstitute)
+nmap rr <plug>(SubversiveSubstituteLine)
+nmap r <plug>(SubversiveSubstituteToEndOfLine)
+nmap <leader>r <plug>(SubversiveSubstituteRange)
+xmap <leader>r <plug>(SubversiveSubstituteRange)
+nmap <leader>rr <plug>(SubversiveSubstituteWordRange)
+nmap <leader><leader>r <plug>(SubversiveSubstituteRangeNoPrompt)
+xmap <leader><leader>r <plug>(SubversiveSubstituteRangeNoPrompt)
+nmap <leader><leader>rr <plug>(SubversiveSubstituteWordRangeNoPrompt)
+nmap <leader>cs <plug>(SubversiveSubstituteRangeConfirm)
+xmap <leader>cs <plug>(SubversiveSubstituteRangeConfirm)
+nmap <leader>css <plug>(SubversiveSubstituteWordRangeConfirm)
 """"""""
+""""""""
+"
+let g:formatdef_erb = '"RBENV_VERSION=$(rbenv global)  htmlbeautifier"'
+let g:formatters_eruby = ['erb']
+"
 """""""" auto reload file
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
