@@ -1,0 +1,59 @@
+{{ if eq .chezmoi.os "darwin" -}}
+{{ else if eq .chezmoi.os "linux" -}}
+{{ end -}}
+
+# fzf
+if [ ! type fzf  > /dev/null 2>&1  ] ; then
+{{ if eq .chezmoi.os "darwin" -}}
+	echo "Install fzf"
+	brew install fzf
+{{ else if eq .chezmoi.os "linux" -}}
+	echo "Install fzf"
+	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && yes | ~/.fzf/install
+{{ end -}}
+fi
+
+# autojump
+if [ ! type autojump  > /dev/null 2>&1  ] ; then
+{{ if eq .chezmoi.os "darwin" -}}
+	echo "Install autojump"
+	brew install autojump
+{{ else if eq .chezmoi.os "linux" -}}
+	echo "Install autojump"
+	sudo apt-get install -y autojump
+{{ end -}}
+fi
+
+# direnv
+if [ ! type direnv  > /dev/null 2>&1  ] ; then
+{{ if eq .chezmoi.os "darwin" -}}
+	echo "Install direnv"
+	brew install direnv
+{{ end -}}
+fi
+
+# zsh
+if [ ! type zsh  > /dev/null 2>&1  ] ; then
+{{ if eq .chezmoi.os "darwin" -}}
+	brew install zsh
+{{ else if eq .chezmoi.os "linux" -}}
+	sudo apt-get install -y zsh
+{{ end -}}
+	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+	git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+fi
+
+# tmux
+if [ ! -d .tmux ]; then
+	cd
+	git clone https://github.com/gpakosz/.tmux.git
+	ln -s -f .tmux/.tmux.conf
+fi
+
+# vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+vim +PlugInstall +qall
+sudo chsh -s $(which zsh) $USER
