@@ -51,7 +51,8 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-rake'
-
+Plug 'tpope/vim-rbenv'
+Plug 'vim-ruby/vim-ruby'
 """ go
 Plug 'fatih/vim-go'
 """
@@ -78,7 +79,7 @@ set updatetime=100
 let g:subversivePromptWithActualCommand=1
 nmap r <plug>(SubversiveSubstitute)
 nmap rr <plug>(SubversiveSubstituteLine)
-nmap r <plug>(SubversiveSubstituteToEndOfLine)
+nmap r$ <plug>(SubversiveSubstituteToEndOfLine)
 nmap <leader>r <plug>(SubversiveSubstituteRange)
 xmap <leader>r <plug>(SubversiveSubstituteRange)
 nmap <leader>rr <plug>(SubversiveSubstituteWordRange)
@@ -165,7 +166,7 @@ let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista_default_executive = 'ctags'
 
 let g:vista_executive_for = {
-  \ 'ruby': 'vim_lsp',
+  \ 'go': 'vim_lsp',
   \ }
 
 function! NearestMethodOrFunction() abort
@@ -202,9 +203,9 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 """""""" vim lsp DO
 let g:lsp_log_verbose = 1
 let g:lsp_log_file = expand('~/vim-lsp.log')
-let g:lsp_settings = {
-\  'ruby': {'cmd': ['solargraph', 'stdio']},
-\}
+"let g:lsp_settings = {
+"\  'solargraph': {'cmd': ['RBENV_VERSION=2.6.6', 'solargraph', 'stdio']},
+"\}
 
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
