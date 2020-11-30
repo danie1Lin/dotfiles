@@ -1,3 +1,11 @@
+set nocompatible
+if has("autocmd")
+  filetype indent plugin on
+endif
+
+runtime macros/matchit.vim
+
+
 " specify a directory for plugins
 let g:python3_host_prog = '/usr/local/bin/python3'
 " - For Neovim: stdpath('data') . '/plugged'
@@ -8,7 +16,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-
+Plug 'tpope/vim-eunuch'
 " (Optional) Multi-entry selection UI.
 Plug 'junegunn/fzf'
 if has('nvim')
@@ -36,7 +44,16 @@ Plug 'kristijanhusak/defx-icons'
 let g:defx_icons_enable_syntax_highlight = 1
 let g:defx_icons_column_length = 1
 
-" UI
+
+" Text Object 
+Plug 'rhysd/vim-textobj-ruby'
+Plug 'kana/vim-textobj-user'
+let g:textobj_ruby_more_mappings = 1
+
+Plug 'bkad/CamelCaseMotion'
+let g:camelcasemotion_key = ','
+"
+"UI
 Plug 'vim-airline/vim-airline'
 Plug 'myusuf3/numbers.vim'
 Plug 'vim-airline/vim-airline-themes'
@@ -97,7 +114,7 @@ Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 call plug#end()
 
 set updatetime=100
-
+let mapleader = "\<SPACE>"
 """""""" subversive
 let g:subversivePromptWithActualCommand=1
 nmap r <plug>(SubversiveSubstitute)
@@ -119,7 +136,7 @@ function SetLSPShortcuts()
   nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
   nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
   nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
-  nnoremap <leader><leader>ld :call LanguageClient#textDocument_definition({'gotoCmd': 'split'})
+  nnoremap <leader><leader>ld :call LanguageClient#textDocument_definition({'gotoCmd': 'split'})<CR>
   nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
   nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
   nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
@@ -135,6 +152,9 @@ augroup LSP
   autocmd!
   autocmd FileType * call SetLSPShortcuts()
 augroup END
+set signcolumn=yes
+let g:LanguageClient_useVirtualText = 'All'
+let g:LanguageClient_loggingFile = expand('~/.vim/LanguageClient.log')
 
 """"""""
 "
@@ -302,7 +322,7 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 " Auto reload vimrc
 augroup myvimrc
     au!
-    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc,init.vim so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
 
 """""" Anti Reload gaurd
