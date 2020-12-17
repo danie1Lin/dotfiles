@@ -19,8 +19,6 @@ nmap <leader>css <plug>(SubversiveSubstituteWordRangeConfirm)
 """"""""
 
 """""""" MY CONFIG
-" Mouse Mode is for weak
-"set mouse=a
 set clipboard=unnamed 
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
@@ -28,11 +26,11 @@ nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 """"""""
 
-"""""""" weak plugin LOL
-nnoremap <Up> :echo "arrow is for weak!"<CR>
-nnoremap <Right> :echo "arrow is for weak!"<CR>
-nnoremap <Down> :echo "arrow is for weak!"<CR>
-nnoremap <Left> :echo "arrow is for weak!"<CR>
+""""""" weak plugin LOL
+"nnoremap <Up> :echo "arrow is for weak!"<CR>
+"nnoremap <Right> :echo "arrow is for weak!"<CR>
+"nnoremap <Down> :echo "arrow is for weak!"<CR>
+"nnoremap <Left> :echo "arrow is for weak!"<CR>
 
 """""""" natural edit in command mode 
 cnoremap <M-Left> <c-Left>
@@ -57,7 +55,7 @@ nnoremap <silent><nowait> <leader>c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
 nnoremap <silent><nowait> <leader>o  :<C-u>CocList outline<cr>
 " Search workspace symbols.
-nnoremap <silent><nowait> <leader>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent><nowait> <leader>sb  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
 nnoremap <silent><nowait> <leader>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
@@ -109,4 +107,20 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
+" navigate chunks of current buffer
+nmap [g <Plug>(coc-git-prevchunk)
+nmap ]g <Plug>(coc-git-nextchunk)
+" navigate conflicts of current buffer
+nmap [c <Plug>(coc-git-prevconflict)
+nmap ]c <Plug>(coc-git-nextconflict)
+" show chunk diff at current position
+nmap gs <Plug>(coc-git-chunkinfo)
+" show commit contains current position
+nmap gc <Plug>(coc-git-commit)
+" create text object for git chunks
+omap ig <Plug>(coc-git-chunk-inner)
+xmap ig <Plug>(coc-git-chunk-inner)
+omap ag <Plug>(coc-git-chunk-outer)
+xmap ag <Plug>(coc-git-chunk-outer)
 
+nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
