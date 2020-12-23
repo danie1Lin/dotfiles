@@ -171,6 +171,8 @@ eval "$(direnv hook zsh)"
 # The next line enables shell command completion for gcloud.
 #if [ -f '$HOME/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/google-cloud-sdk/completion.zsh.inc'; fi
 
+if [ -f '/usr/local/bin/aws_zsh_completer.sh' ]; then . '/usr/local/bin/aws_zsh_completer.sh'; fi
+
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
