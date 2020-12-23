@@ -1,4 +1,5 @@
 let mapleader = "\<space>"
+set mouse=a
 inoremap II <Esc>I
 inoremap AA <Esc>A
 inoremap OO <Esc>O
@@ -124,3 +125,22 @@ omap ag <Plug>(coc-git-chunk-outer)
 xmap ag <Plug>(coc-git-chunk-outer)
 
 nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
+
+"""""""" easymotion DO
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap <leader><leader>f <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+"""""""" easymotion END
+
+
