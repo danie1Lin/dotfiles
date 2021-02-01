@@ -5,7 +5,6 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 Plug 'tpope/vim-eunuch'
 " (Optional) Multi-entry selection UI.
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -75,9 +74,14 @@ Plug 'glts/vim-magnum'
 Plug 'glts/vim-radical'
 Plug 'liuchengxu/vim-which-key'
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+Plug 'tpope/vim-dotenv'
+Plug 'joshdick/onedark.vim'
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'Shougo/echodoc.vim'
 """
 call plug#end()
-
+colorscheme onedark
 set updatetime=100
 let g:formatdef_erb = '"RBENV_VERSION=$(rbenv global)  htmlbeautifier"'
 let g:formatters_eruby = ['erb']
@@ -151,7 +155,7 @@ set numberwidth=4
 
 """""""" airline
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='solarized'
+let g:airline_theme='bubblegum'
 let g:airline_solarized_bg='dark'
 let g:airline#extensions#hunks#enabled=0
 let g:airline#extensions#branch#enabled=0

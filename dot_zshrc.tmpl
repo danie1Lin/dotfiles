@@ -172,6 +172,7 @@ eval "$(direnv hook zsh)"
 #if [ -f '$HOME/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/google-cloud-sdk/completion.zsh.inc'; fi
 
 if [ -f '/usr/local/bin/aws_zsh_completer.sh' ]; then . '/usr/local/bin/aws_zsh_completer.sh'; fi
+if [ -f "$HOME/istio-1.8.1/tools/_istioctl" ]; then . "$HOME/istio-1.8.1/tools/_istioctl"; fi
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
@@ -233,3 +234,6 @@ ZLE_RPROMPT_INDENT=0
 ### pipx autoenv
 export PATH=$HOME/.local/bin:$PATH
 ###
+PATH="$PATH:$HOME/istio-1.8.1/bin"
+eval $(thefuck --alias)
+
