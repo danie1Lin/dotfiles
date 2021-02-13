@@ -17,7 +17,9 @@ let g:textobj_ruby_more_mappings = 1
 
 Plug 'bkad/CamelCaseMotion'
 let g:camelcasemotion_key = ','
-"
+
+Plug 'brglng/vim-im-select'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 "UI
 Plug 'vim-airline/vim-airline'
 Plug 'myusuf3/numbers.vim'
