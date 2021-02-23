@@ -13,5 +13,6 @@
   "git.removedSign.hlGroup": "GitGutterDelete",
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-  "git.gitlab.hosts": ["gitlab.kkinternal.com"]
+  "git.gitlab.hosts": ["gitlab.kkinternal.com"],
+  "coc.preferences.jumpCommand": "CocSplitIfNotOpen"
 }

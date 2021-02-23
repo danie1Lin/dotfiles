@@ -117,6 +117,8 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 alias vim='nvim'
+export EDITOR=nvim
+export VISUAL=nvim
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -247,7 +249,7 @@ zinit for \
 # After automatic unpacking it provides program "fzf".
 zinit ice from"gh-r" as"program"
 zinit load junegunn/fzf-bin
-
+zinit load zsh-users/zsh-history-substring-search
 # One other binary release, it needs renaming from `docker-compose-Linux-x86_64`.
 # This is done by ice-mod `mv'{from} -> {to}'. There are multiple packages per
 # single version, for OS X, Linux and Windows – so ice-mod `bpick' is used to
@@ -276,9 +278,29 @@ zinit light tj/git-extras
 # zinit creinstall %HOME/my_completions
 
 ### End of Zinit's installer chunk
-zinit snippet https://github.com/robbyrussell/oh-my-zsh/raw/master/plugins/git/git.plugin.zsh
-zinit snippet https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/kubectl/kubectl.plugin.zsh
-zinit snippet https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/autojump/autojump.plugin.zsh
-zinit snippet https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/aws/aws.plugin.zsh
-
+zinit snippet OMZP::aws
+zinit snippet OMZP::fzf
+zinit snippet OMZP::git
+zinit snippet OMZP::kubectl
+zinit snippet OMZP::autojump
+zinit snippet OMZP::rails
+zinit snippet OMZP::git
+zinit snippet OMZP::tig
+zinit snippet OMZP::fzf
+zinit snippet OMZP::zsh-interactive-cd
+zinit snippet OMZP::zsh-navigation-tools
+zinit snippet OMZP::vim-interaction
+zinit snippet OMZP::iterm2
+zinit snippet OMZP::xcode
+zinit snippet OMZP::capistrano
+zinit snippet OMZP::direnv
+zinit snippet OMZP::doctl
+zinit snippet OMZP::terraform
 source $HOME/.zinit/plugins/tj---git-extras/etc/git-extras-completion.zsh
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey '^[[1;3C' forward-word 
+bindkey '^[[1;5C' backward-word 
+bindkey '^[[1;3D' forward-word 
+bindkey '^[[1;5D' backward-word 
