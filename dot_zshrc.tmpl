@@ -289,7 +289,6 @@ zinit snippet OMZP::tig
 zinit snippet OMZP::fzf
 zinit snippet OMZP::zsh-interactive-cd
 zinit snippet OMZP::zsh-navigation-tools
-zinit snippet OMZP::vim-interaction
 zinit snippet OMZP::iterm2
 zinit snippet OMZP::xcode
 zinit snippet OMZP::capistrano
@@ -299,8 +298,7 @@ zinit snippet OMZP::terraform
 source $HOME/.zinit/plugins/tj---git-extras/etc/git-extras-completion.zsh
 
 bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey '^[[1;3C' forward-word 
-bindkey '^[[1;5C' backward-word 
-bindkey '^[[1;3D' forward-word 
+bindkey '^[[B' history-substring-search-down 
+
+bindkey '^[[1;5C' forward-word 
 bindkey '^[[1;5D' backward-word 
