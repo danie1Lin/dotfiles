@@ -81,6 +81,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'Shougo/echodoc.vim'
+
 """
 call plug#end()
 colorscheme onedark
@@ -128,6 +129,7 @@ let g:instant_markdown_slow = 1
 """""""" numbers
 let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'vista']
 """"""""
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-dictionary', 'coc-css', 'coc-marketplace', 'coc-go', 'coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-yank', 'coc-yaml', 'coc-word', 'coc-vimlsp', 'coc-ultisnips', 'coc-tag', 'coc-html', 'coc-fzf-preview']
 
 """""""" yoink
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)
