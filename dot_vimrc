@@ -130,7 +130,7 @@ let g:instant_markdown_slow = 1
 """""""" numbers
 let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'vista']
 """"""""
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-dictionary', 'coc-css', 'coc-marketplace', 'coc-go', 'coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-yank', 'coc-yaml', 'coc-word', 'coc-vimlsp', 'coc-snippets', 'coc-tag', 'coc-html', 'coc-fzf-preview']
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-dictionary', 'coc-css', 'coc-marketplace', 'coc-go', 'coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-yank', 'coc-yaml', 'coc-word', 'coc-vimlsp', 'coc-snippets', 'coc-tag', 'coc-html', 'coc-fzf-preview', 'coc-spell-checker', 'coc-html', 'coc-solargraph', 'coc-yaml', 'coc-vimlsp', 'coc-sql', 'coc-just-complete', 'coc-markdownlint', 'coc-html-css-support', 'coc-htmlhint', 'coc-fzf-preview']
 
 """""""" yoink
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)
@@ -149,8 +149,10 @@ nmap ,cl :let @*=expand("%:p")<CR>
 """"""""
 
 """""""" fzf
-nmap <expr> <c-p> yoink#canSwap() ? '<plug>(YoinkPostPasteSwapForward)' : ':Files<CR>'
+nmap <expr> <c-p> yoink#canSwap() ? '<plug>(YoinkPostPasteSwapForward)' : ':CocCommand fzf-preview.GitFiles<CR>'
 """"""""
+
+nmap <c-s-p> :CocCommand fzf-preview.ProjectFiles<CR>
 
 
 """""""" line no
