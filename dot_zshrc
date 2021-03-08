@@ -1,0 +1,276 @@
+autoload compinit && compinit
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f ~/powerlevel10k/powerlevel10k.zsh-theme ]] || source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+export TERM="xterm-256color"
+
+setopt no_nomatch
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# iterm2 intergration
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+iterm2_print_user_vars() {
+iterm2_set_user_var awsProfile $AWS_PROFILE
+KUBECONTEXT=$(CTX=$(kubectl config current-context) 2> /dev/null;if [ $? -eq 0 ]; then echo $CTX;fi)
+iterm2_set_user_var kubeContext $KUBECONTEXT
+}
+#typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+alias ls="ls -a"
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias vim='nvim'
+export EDITOR=nvim
+export VISUAL=nvim
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export GOPATH=$HOME/go
+export PATH=$HOME/go/bin/:$PATH
+export PATH=/usr/local/opt/rabbitmq/sbin:$PATH
+export PATH="$HOME/bin:/usr/local/opt/qt@5.5/bin:$PATH"
+[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh ]]
+eval "$(direnv hook zsh)"
+
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+#set -x
+#gvm use 1.14
+# The next line updates PATH for the Google Cloud SDK.
+#if [ -f '$HOME/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+#if [ -f '$HOME/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/google-cloud-sdk/completion.zsh.inc'; fi
+
+if [ -f '/usr/local/bin/aws_zsh_completer.sh' ]; then . '/usr/local/bin/aws_zsh_completer.sh'; fi
+if [ -f "$HOME/istio-1.8.1/tools/_istioctl" ]; then . "$HOME/istio-1.8.1/tools/_istioctl"; fi
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+
+# npm global package install issue
+export NPM_PACKAGES="/usr/local/npm_packages"
+export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
+export PATH="$NPM_PACKAGES/bin:$PATH"
+
+export PATH="/usr/local/opt/terraform@0.11/bin:$PATH"
+
+# rm prevent
+function trash() { mv "$@" ~/.Trash; }
+
+# 方便用
+alias md='mkdir -p'
+
+function loop() {
+  while 1; do
+    eval $@
+  done
+}
+
+function c() {
+  if [ -t $@ ]; then
+    cat "$@" | less
+  else
+    all=""
+    while read data; do
+      all="$all$data"
+    done
+    echo all | less
+  fi
+}
+alias k="kubectl"
+
+[[ -s /home/ubuntu/.autojump/etc/profile.d/autojump.sh ]] && source /home/ubuntu/.autojump/etc/profile.d/autojump.sh
+type rbenv &> /dev/null && eval "$(rbenv init -)"
+
+### NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+### NVM
+
+
+### VIM
+#ZLE_RPROMPT_INDENT=0
+###
+
+### pipx autoenv
+export PATH=$HOME/.local/bin:$PATH
+###
+PATH="$PATH:$HOME/istio-1.8.1/bin"
+eval $(thefuck --alias)
+
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zinit-zsh/z-a-rust \
+    zinit-zsh/z-a-as-monitor \
+    zinit-zsh/z-a-patch-dl \
+    zinit-zsh/z-a-bin-gem-node
+
+# Two regular plugins loaded without investigating.
+zinit light zsh-users/zsh-autosuggestions
+zinit light zdharma/fast-syntax-highlighting
+
+# Plugin history-search-multi-word loaded with investigating.
+zinit load zdharma/history-search-multi-word
+
+# Load the pure theme, with zsh-async library that's bundled with it.
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
+
+# A glance at the new for-syntax – load all of the above
+# plugins with a single command. For more information see:
+# https://zdharma.org/zinit/wiki/For-Syntax/
+zinit for \
+    light-mode  zsh-users/zsh-autosuggestions \
+    light-mode  zdharma/fast-syntax-highlighting \
+                zdharma/history-search-multi-word \
+    light-mode pick"async.zsh" src"pure.zsh" \
+                sindresorhus/pure
+
+# Binary release in archive, from GitHub-releases page.
+# After automatic unpacking it provides program "fzf".
+zinit ice from"gh-r" as"program"
+zinit load junegunn/fzf-bin
+zinit load zsh-users/zsh-history-substring-search
+# One other binary release, it needs renaming from `docker-compose-Linux-x86_64`.
+# This is done by ice-mod `mv'{from} -> {to}'. There are multiple packages per
+# single version, for OS X, Linux and Windows – so ice-mod `bpick' is used to
+# select Linux package – in this case this is actually not needed, Zinit will
+# grep operating system name and architecture automatically when there's no `bpick'.
+zinit ice from"gh-r" as"program" mv"docker* -> docker-compose" bpick"*linux*"
+zinit load docker/compose
+
+# Vim repository on GitHub – a typical source code that needs compilation – Zinit
+# can manage it for you if you like, run `./configure` and other `make`, etc. stuff.
+# Ice-mod `pick` selects a binary program to add to $PATH. You could also install the
+# package under the path $ZPFX, see: http://zdharma.org/zinit/wiki/Compiling-programs
+zinit ice as"program" atclone"rm -f src/auto/config.cache; ./configure" \
+    atpull"%atclone" make pick"src/vim"
+zinit light vim/vim
+
+# Scripts that are built at install (there's single default make target, "install",
+# and it constructs scripts by `cat'ing a few files). The make'' ice could also be:
+# `make"install PREFIX=$ZPFX"`, if "install" wouldn't be the only, default target.
+zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"
+zinit light tj/git-extras
+
+
+# Handle completions without loading any plugin, see "clist" command.
+# This one is to be ran just once, in interactive session.
+# zinit creinstall %HOME/my_completions
+
+### End of Zinit's installer chunk
+zinit snippet OMZP::aws
+zinit snippet OMZP::fzf
+zinit snippet OMZP::git
+zinit snippet OMZP::kubectl
+zinit snippet OMZP::autojump
+zinit snippet OMZP::rails
+zinit snippet OMZP::git
+zinit snippet OMZP::tig
+zinit snippet OMZP::zsh-interactive-cd
+zinit snippet OMZP::zsh-navigation-tools
+zinit snippet OMZP::iterm2
+zinit snippet OMZP::xcode
+zinit snippet OMZP::capistrano
+zinit snippet OMZP::direnv
+zinit snippet OMZP::doctl
+zinit snippet OMZP::terraform
+source $HOME/.zinit/plugins/tj---git-extras/etc/git-extras-completion.zsh
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down 
+
+bindkey '^[f' forward-word 
+bindkey '^[b' backward-word 
+
+source $HOME/alias.zsh
+
+zinit pack for fzf
+zinit pack for ecs-cli
+zinit pack for doctoc
+zinit wait lucid for zinit-zsh/zinit-console
+zinit load zdharma/zui
+

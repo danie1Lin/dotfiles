@@ -40,7 +40,6 @@ cnoremap <M-bs> <c-w>
 """"""""
 
 """"""""
-inoremap <C-K> <C-Right>
 inoremap <M-bs> <c-w>
 inoremap <M-left> <c-left>
 inoremap <M-right> <c-right>

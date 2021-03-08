@@ -3,6 +3,7 @@
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
+Plug 'honza/vim-snippets'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-eunuch'
@@ -129,7 +130,7 @@ let g:instant_markdown_slow = 1
 """""""" numbers
 let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'vista']
 """"""""
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-dictionary', 'coc-css', 'coc-marketplace', 'coc-go', 'coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-yank', 'coc-yaml', 'coc-word', 'coc-vimlsp', 'coc-ultisnips', 'coc-tag', 'coc-html', 'coc-fzf-preview']
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-dictionary', 'coc-css', 'coc-marketplace', 'coc-go', 'coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-yank', 'coc-yaml', 'coc-word', 'coc-vimlsp', 'coc-snippets', 'coc-tag', 'coc-html', 'coc-fzf-preview', 'coc-spell-checker', 'coc-html', 'coc-solargraph', 'coc-yaml', 'coc-vimlsp', 'coc-sql', 'coc-just-complete', 'coc-markdownlint', 'coc-html-css-support', 'coc-htmlhint', 'coc-fzf-preview']
 
 """""""" yoink
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)
@@ -148,8 +149,10 @@ nmap ,cl :let @*=expand("%:p")<CR>
 """"""""
 
 """""""" fzf
-nmap <expr> <c-p> yoink#canSwap() ? '<plug>(YoinkPostPasteSwapForward)' : ':Files<CR>'
+nmap <expr> <c-p> yoink#canSwap() ? '<plug>(YoinkPostPasteSwapForward)' : ':CocCommand fzf-preview.GitFiles<CR>'
 """"""""
+
+nmap <c-s-p> :CocCommand fzf-preview.ProjectFiles<CR>
 
 
 """""""" line no
@@ -220,31 +223,12 @@ else
   set signcolumn=yes
 endif
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
 " Use <c-space> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -278,7 +262,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json,go,ruby setl formatexpr=CocAction('formatSelected')
+  autocmd FileType typescript,json,go,ruby,javascript setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
