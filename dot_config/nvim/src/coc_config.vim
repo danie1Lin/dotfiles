@@ -27,12 +27,12 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 xmap <leader>x  <Plug>(coc-convert-snippet)
 
 """"""" multi select
-nmap <expr> <silent> <C-d> <SID>select_current_word()
+nmap <expr><silent><C-d> <SID>select_current_word()
 function! s:select_current_word()
   if !get(b:, 'coc_cursors_activated', 0)
     return "\<Plug>(coc-cursors-word)"
   endif
-  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+  return "\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 endfunc
 
 nmap <silent> <C-c> <Plug>(coc-cursors-position)
@@ -60,3 +60,7 @@ function! SplitIfNotOpen(...)
 endfunction
 
 command! -nargs=+ CocSplitIfNotOpen :call SplitIfNotOpen(<f-args>)
+
+autocmd FileType * let b:coc_root_patterns = ['.git', '.env']
+
+

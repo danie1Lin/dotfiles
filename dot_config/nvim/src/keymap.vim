@@ -142,4 +142,3 @@ map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 """""""" easymotion END
 
-
