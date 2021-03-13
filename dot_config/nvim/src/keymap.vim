@@ -125,6 +125,12 @@ xmap ag <Plug>(coc-git-chunk-outer)
 
 nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
 
+nmap <Leader>rn <Plug>(coc-rename)
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 """""""" easymotion DO
 " <Leader>f{char} to move to {char}
 map  <Leader>f <Plug>(easymotion-bd-f)
