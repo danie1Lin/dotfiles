@@ -1,5 +1,8 @@
 {
   "solargraph.diagnostics": true,
+  "solargraph.formatting": true,
+  "solargraph.logLevel": "debug",
+  "solargraph.trace.server": "verbose",
   "languageserver": {
     "golang": {
       "command": "gopls",
@@ -10,6 +13,16 @@
       "command": "terraform-lsp",
       "filetypes": ["terraform"],
       "initializationOptions": {}
+    },
+    "puppet": {
+      "command": "ruby",
+      "args": [
+        "/Users/daniellin/puppet-editor-services/puppet-languageserver",
+        "--stdio",
+        "--puppet-settings=--moduledir,./modules"
+      ],
+      "filetypes": ["puppet"],
+      "rootPatterns": [".git/", "metadata.json"]
     }
   },
   "list.source.grep.command": "ag",
@@ -19,5 +32,6 @@
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
   "git.gitlab.hosts": ["gitlab.kkinternal.com"],
-  "coc.preferences.jumpCommand": "CocSplitIfNotOpen"
+  "coc.preferences.jumpCommand": "CocSplitIfNotOpen",
+  "coc.preferences.formatOnSaveFiletypes": ["ruby", "json", "go"]
 }

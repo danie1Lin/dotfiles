@@ -3,6 +3,12 @@
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
+" For puppet
+Plug 'mrk21/yaml-vim'
+Plug 'rodjek/vim-puppet'
+"""""
+
+
 Plug 'honza/vim-snippets'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -41,8 +47,14 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-repeat'
 
+if has('nvim')
+  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/defx.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 " Sidebar
-Plug 'preservim/nerdtree'
 " Git
 if has('nvim') || has('patch-8.0.902')
   Plug 'mhinz/vim-signify'
