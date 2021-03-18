@@ -1,4 +1,5 @@
 {
+  "list.source.gfiles.defaultOptions": ["--number-select"],
   "solargraph.diagnostics": true,
   "solargraph.formatting": true,
   "solargraph.logLevel": "debug",

@@ -17,14 +17,6 @@ Plug 'tpope/vim-eunuch'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" Text Object 
-Plug 'rhysd/vim-textobj-ruby'
-Plug 'kana/vim-textobj-user'
-let g:textobj_ruby_more_mappings = 1
-
-Plug 'bkad/CamelCaseMotion'
-let g:camelcasemotion_key = ','
-
 Plug 'brglng/vim-im-select'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 "UI
@@ -142,7 +134,7 @@ let g:instant_markdown_slow = 1
 """""""" numbers
 let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'vista']
 """"""""
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-dictionary', 'coc-css', 'coc-marketplace', 'coc-go', 'coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-yank', 'coc-yaml', 'coc-word', 'coc-vimlsp', 'coc-snippets', 'coc-tag', 'coc-html', 'coc-fzf-preview', 'coc-spell-checker', 'coc-html', 'coc-solargraph', 'coc-yaml', 'coc-vimlsp', 'coc-sql', 'coc-just-complete', 'coc-markdownlint', 'coc-html-css-support', 'coc-htmlhint', 'coc-fzf-preview', 'coc-sh', 'coc-diagnostic']
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-dictionary', 'coc-css', 'coc-marketplace', 'coc-go', 'coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-yank', 'coc-yaml', 'coc-word', 'coc-vimlsp', 'coc-snippets', 'coc-tag', 'coc-html', 'coc-fzf-preview', 'coc-spell-checker', 'coc-html', 'coc-solargraph', 'coc-yaml', 'coc-vimlsp', 'coc-sql', 'coc-just-complete', 'coc-markdownlint', 'coc-html-css-support', 'coc-htmlhint', 'coc-fzf-preview', 'coc-sh', 'coc-diagnostic', 'coc-db']
 
 """""""" yoink
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)
@@ -323,3 +315,4 @@ endfunction
 
 
 """""""""" COC END
+set runtimepath^=/Users/linzhanwei/coc-caseconvert
