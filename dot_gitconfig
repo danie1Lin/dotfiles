@@ -1,0 +1,17 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = daniellin
+	email = s102033114@gapp.nthu.edu.tw
+[core]
+	excludesfile = /Users/daniellin/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/daniellin/.stCommitMsg
+[url "git@gitlab.kkinternal.com:"]
+	insteadOf = https://gitlab.kkinternal.com

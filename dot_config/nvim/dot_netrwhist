@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/Users/daniellin/bv/moment/api-cms'
+let g:netrw_dirhist_2='/Users/daniellin/crank/example/tasks'
+let g:netrw_dirhist_1='/Users/daniellin/crank/example'
+let g:netrw_dirhist_0='/Users/daniellin/.aws'
+let g:netrw_dirhist_9='/Users/daniellin/bv/kld/db-migration/bvtv'
+let g:netrw_dirhist_8='/Users/daniellin/.zsh'
+let g:netrw_dirhist_7='/Users/daniellin/bv/kld'
+let g:netrw_dirhist_6='/Users/daniellin/bv/kld/bv-tv-playback/internal/models'
+let g:netrw_dirhist_5='/Users/daniellin/bv/kld/bv-tv-playback/internal'
+let g:netrw_dirhist_4='/Users/daniellin/bv/kld/bv-tv-playback/pkg'

@@ -3,11 +3,17 @@
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'mfussenegger/nvim-ts-hint-textobject'
 " For puppet
 Plug 'mrk21/yaml-vim'
 Plug 'rodjek/vim-puppet'
+"Plug 'fatih/vim-go'
 """""
 
+Plug 'aserebryakov/vim-todo-lists'
+Plug 'towolf/vim-helm'
 
 Plug 'honza/vim-snippets'
 
@@ -56,19 +62,8 @@ endif
 Plug 'tpope/vim-fugitive'
 Plug 'liuchengxu/vista.vim'
 
-" Language
-Plug 'Chiel92/vim-autoformat'
 """ setting
 Plug 'editorconfig/editorconfig-vim'
-""" ruby
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-bundler'
-Plug 'tpope/vim-rake'
-Plug 'tpope/vim-rbenv'
-Plug 'vim-ruby/vim-ruby'
-""" go
-"""
-Plug 'kchmck/vim-coffee-script'
 
 """ tools
 " operations
@@ -82,14 +77,19 @@ Plug 'glts/vim-radical'
 Plug 'liuchengxu/vim-which-key'
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'tpope/vim-dotenv'
-Plug 'joshdick/onedark.vim'
-Plug 'tpope/vim-dadbod'
-Plug 'kristijanhusak/vim-dadbod-ui'
+"Plug 'joshdick/onedark.vim'
+Plug 'navarasu/onedark.nvim' " support tree sitter
 Plug 'Shougo/echodoc.vim'
 
+Plug 'tpope/vim-dadbod'
+Plug 'vim-scripts/dbext.vim'
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 """
 call plug#end()
 colorscheme onedark
+let g:onedark_termcolors=256
+let g:onedark_terminal_italics=0
 set updatetime=100
 let g:formatdef_erb = '"RBENV_VERSION=$(rbenv global)  htmlbeautifier"'
 let g:formatters_eruby = ['erb']
@@ -130,11 +130,11 @@ let g:instant_markdown_slow = 1
 "let g:instant_markdown_port = 8888
 "let g:instant_markdown_python = 1
 """"""""
-
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv']
 """""""" numbers
 let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'vista']
 """"""""
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-dictionary', 'coc-css', 'coc-marketplace', 'coc-go', 'coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-yank', 'coc-yaml', 'coc-word', 'coc-vimlsp', 'coc-snippets', 'coc-tag', 'coc-html', 'coc-fzf-preview', 'coc-spell-checker', 'coc-html', 'coc-solargraph', 'coc-yaml', 'coc-vimlsp', 'coc-sql', 'coc-just-complete', 'coc-markdownlint', 'coc-html-css-support', 'coc-htmlhint', 'coc-fzf-preview', 'coc-sh', 'coc-diagnostic', 'coc-db']
+let g:coc_global_extensions = ['coc-pyright','coc-browser', 'coc-explorer', 'coc-sqlfluff', 'coc-json', 'coc-git', 'coc-dictionary', 'coc-css', 'coc-marketplace', 'coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-yank', 'coc-yaml', 'coc-word', 'coc-vimlsp', 'coc-snippets', 'coc-tag', 'coc-html', 'coc-spell-checker', 'coc-html', 'coc-yaml', 'coc-vimlsp', 'coc-just-complete', 'coc-markdownlint', 'coc-html-css-support', 'coc-db', 'coc-htmlhint', 'coc-fzf-preview', 'coc-sh', 'coc-diagnostic', 'coc-rust-analyzer', 'coc-rls', 'coc-marketplace']
 
 """""""" yoink
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)
@@ -155,9 +155,6 @@ nmap ,cl :let @*=expand("%:p")<CR>
 """""""" fzf
 nmap <expr> <c-p> yoink#canSwap() ? '<plug>(YoinkPostPasteSwapForward)' : ':CocCommand fzf-preview.GitFiles<CR>'
 """"""""
-
-nmap <c-s-p> :CocCommand fzf-preview.DirectoryFiles<CR>
-
 
 """""""" line no
 set relativenumber
@@ -245,28 +242,13 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
-
-
 
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json,go,ruby,javascript setl formatexpr=CocAction('formatSelected')
+  autocmd FileType typescript,json,go,ruby,javascript,rust setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
@@ -278,10 +260,6 @@ if has('nvim')
   vnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#nvim_scroll(0, 1) : "\<C-b>"
 endif
 
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
@@ -313,6 +291,4 @@ function! s:GrepFromSelected(type)
 endfunction
 """"""""""""""""""""
 
-
-"""""""""" COC END
-set runtimepath^=/Users/linzhanwei/coc-caseconvert
+autocmd FileType sql DB b:db = DotenvGet('DATABASE_URL')

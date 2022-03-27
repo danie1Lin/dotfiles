@@ -5,14 +5,9 @@
   "solargraph.logLevel": "debug",
   "solargraph.trace.server": "verbose",
   "languageserver": {
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"]
-    },
     "terraform": {
       "command": "terraform-lsp",
-      "filetypes": ["terraform"],
+      "filetypes": ["terraform", "tf"],
       "initializationOptions": {}
     },
     "puppet": {
@@ -26,6 +21,11 @@
       "rootPatterns": [".git/", "metadata.json"]
     }
   },
+  "browser.patterns": {
+    "*": []
+  },
+  "browser.port": 9999,
+  "python.pythonPath": "python",
   "list.source.grep.command": "ag",
   "git.addedSign.hlGroup": "GitGutterAdd",
   "git.changedSign.hlGroup": "GitGutterChange",
@@ -34,5 +34,21 @@
   "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
   "git.gitlab.hosts": ["gitlab.kkinternal.com"],
   "coc.preferences.jumpCommand": "CocSplitIfNotOpen",
-  "coc.preferences.formatOnSaveFiletypes": ["ruby", "json", "go"]
+  "coc.preferences.formatOnSaveFiletypes": [
+    "ruby",
+    "json",
+    "go",
+    "rust",
+    "python"
+  ],
+  "cSpell.userWords": [
+    "asyncio",
+    "deque",
+    "newebpay",
+    "reqwest",
+    "reqwst",
+    "tmpl"
+  ],
+  "go.goplsPath": "/Users/daniellin/go/bin/gopls",
+  "go.goplsUseDaemon": false
 }
