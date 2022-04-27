@@ -42,14 +42,6 @@ WORDCHARS=${WORDCHARS//[\/]}
 # --------------------
 
 #
-# completion
-#
-
-# Set a custom path for the completion dump file.
-# If none is provided, the default ${ZDOTDIR:-${HOME}}/.zcompdump is used.
-#zstyle ':zim:completion' dumpfile "${ZDOTDIR:-${HOME}}/.zcompdump-${ZSH_VERSION}"
-
-#
 # git
 #
 
@@ -76,6 +68,10 @@ WORDCHARS=${WORDCHARS//[\/]}
 # zsh-autosuggestions
 #
 
+# Disable automatic widget re-binding on each precmd. This can be set when
+# zsh-users/zsh-autosuggestions is the last module in your ~/.zimrc.
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
 # Customize the style that the suggestions are shown with.
 # See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
 #ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
@@ -97,10 +93,22 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 # Initialize modules
 # ------------------
 
+ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+# Download zimfw plugin manager if missing.
+if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+  if (( ${+commands[curl]} )); then
+    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  else
+    mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  fi
+fi
+# Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
 if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
-  # Update static initialization script if it does not exist or it's outdated, before sourcing it
   source ${ZIM_HOME}/zimfw.zsh init -q
 fi
+# Initialize modules.
 source ${ZIM_HOME}/init.zsh
 
 # ------------------------------
@@ -108,6 +116,19 @@ source ${ZIM_HOME}/init.zsh
 # ------------------------------
 
 #
+# zsh-history-substring-search
+#
+
+zmodload -F zsh/terminfo +p:terminfo
+# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+for key ('^[[A' '^P' ${terminfo[kcuu1]}) bindkey ${key} history-substring-search-up
+for key ('^[[B' '^N' ${terminfo[kcud1]}) bindkey ${key} history-substring-search-down
+for key ('k') bindkey -M vicmd ${key} history-substring-search-up
+for key ('j') bindkey -M vicmd ${key} history-substring-search-down
+unset key
+# }}} End configuration added by Zim install
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
 # zsh-history-substring-search
 #
 
@@ -212,6 +233,7 @@ export VISUAL=nvim
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH=$HOME/usr/local/go/bin/:$PATH
+export PATH=$HOME/bin/:$PATH
 export PATH=/usr/local/opt/rabbitmq/sbin:$PATH
 export PATH="$HOME/bin:/usr/local/opt/qt@5.5/bin:$PATH"
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh ]]
@@ -227,10 +249,6 @@ eval "$(direnv hook zsh)"
 if [ -f '/usr/local/bin/aws_zsh_completer.sh' ]; then . '/usr/local/bin/aws_zsh_completer.sh'; fi
 #if [ -f "$HOME/istio-1.8.1/tools/_istioctl" ]; then . "$HOME/istio-1.8.1/tools/_istioctl"; fi
 
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
-
 # npm global package install issue
 export NPM_PACKAGES="/usr/local/npm_packages"
 export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
@@ -242,6 +260,7 @@ export PATH="/usr/local/opt/terraform@0.11/bin:$PATH"
 function trash() { mv "$@" ~/.Trash; }
 
 # 方便用
+alias ag='ag --ignore ~/.ignore' 
 alias md='mkdir -p'
 
 function loop() {
@@ -282,29 +301,15 @@ export PATH=$HOME/.local/bin:$PATH
 PATH="$PATH:$HOME/istio-1.8.1/bin"
 eval $(thefuck --alias)
 
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/daniellin/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/daniellin/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/daniellin/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/daniellin/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 DOCKER_BUILDKIT=0
 
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
-eval "$(jira --completion-script-bash)"
+[[ -x jira ]] && eval "$(jira --completion-script-bash)"
 
 
 alias eks_dev="aws eks update-kubeconfig --name bv-tv-dev-eks-general --profile bv-dev"
-alias eks_stage="aws eks update-kubeconfig --name bv-tv-stage-eks-general --profile bv-dev"
-alias eks_prod="aws eks update-kubeconfig --name bv-tv-prod-eks-general --profile bv"
-
 alias dev_db="eks_dev && kubectl port-forward port-forward-db 3308:3306 && echo :33080"
-alias stage_db="eks_stage && kubectl port-forward port-forward-db 3309:3306 && echo :33090"
-alias prod_db='echo run: "eks_prod && kubectl port-forward port-forward-db 33061:3306 && echo :33061"'
-
 alias aks_dev="az aks get-credentials --resource-group kkstream-jpe-blendvision-dev --name kkstream-jpe-blendvision-dev "
-alias aks_stage="az aks get-credentials --resource-group kkstream-jpe-blendvision-stage --name kkstream-jpe-blendvision-stage"
-alias aks_prod="az aks get-credentials --resource-group kkstream-jpe-blendvision-prod --name kkstream-jpe-blendvision-prod"
 
 alias ghload='nodemon -e .go --signal SIGTERM --watch . --exec'
 alias gtdd="nodemon -e .go --watch . --exec 'go test ./... -v || exit 1'"
@@ -322,3 +327,17 @@ alias ggp='Gb --show-current git push --set-upstream origin $(Gb --show-current)
 export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 alias rhload='nodemon -e .rs --watch . --exec'
 alias phload='nodemon -e .py --watch . --exec'
+alias chezmoi_update='chezmoi add .zimrc .zshenv .zshrc'
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/daniellin/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/daniellin/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/daniellin/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/daniellin/google-cloud-sdk/completion.zsh.inc'; fi
+export PATH=/Users/daniellin/google-cloud-sdk/bin:/usr/local/opt/mysql-client/bin:/Users/daniellin/.local/bin:/Users/daniellin/.rbenv/shims:/usr/local/opt/terraform@0.11/bin:/usr/local/npm_packages/bin:/Users/daniellin/bin:/usr/local/opt/qt@5.5/bin:/usr/local/opt/rabbitmq/sbin:/Users/daniellin/bin/:/Users/daniellin/usr/local/go/bin/:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/daniellin/usr/local/go/bin/:/Users/daniellin/google-cloud-sdk/bin:/usr/local/opt/mysql-client/bin:/Users/daniellin/.local/bin:/Users/daniellin/.rbenv/shims:/usr/local/opt/terraform@0.11/bin:/usr/local/npm_packages/bin:/Users/daniellin/bin:/usr/local/opt/qt@5.5/bin:/usr/local/opt/rabbitmq/sbin:/Users/daniellin/bin/:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/daniellin/go/bin:/Users/daniellin/istio-1.8.1/bin:/Users/daniellin/.local/bin:/Users/daniellin/go/bin:/Users/daniellin/istio-1.8.1/bin:/Users/daniellin/.istio/istio-1.10.2/bin
+GOPATH=/Users/daniellin/go
+
+
+# Carousell
+export LOCALENV_PATH=${HOME}/carousell-localenv
+export PATH="${LOCALENV_PATH}/localenv:$PATH"

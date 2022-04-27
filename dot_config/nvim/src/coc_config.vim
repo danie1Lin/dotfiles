@@ -1,10 +1,5 @@
 """"" Completion
 
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
@@ -78,6 +73,8 @@ function! SplitIfNotOpen(...)
     if winnum != -1
 	" Jump to existing split
 	exe winnum . "wincmd w"
+    elseif winnr('$') > 1 
+	exe "2 windo e " . fname
     else
 	" Make new split as usual
 	exe "vsplit " . fname
@@ -120,3 +117,4 @@ xnoremap          [fzf-p]s    "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<
 nnoremap <silent> [fzf-p]t     :<C-u>CocCommand fzf-preview.BufferTags<CR>
 nnoremap <silent> [fzf-p]q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
 nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
+

@@ -11,7 +11,6 @@ Plug 'mrk21/yaml-vim'
 Plug 'rodjek/vim-puppet'
 "Plug 'fatih/vim-go'
 """""
-
 Plug 'aserebryakov/vim-todo-lists'
 Plug 'towolf/vim-helm'
 
@@ -26,8 +25,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'brglng/vim-im-select'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 "UI
-Plug 'vim-airline/vim-airline'
 Plug 'myusuf3/numbers.vim'
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/promptline.vim'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -130,11 +129,11 @@ let g:instant_markdown_slow = 1
 "let g:instant_markdown_port = 8888
 "let g:instant_markdown_python = 1
 """"""""
-autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv']
+autocmd FileType python let b:coc_root_patterns = ['go.mod','.git', '.env', 'venv']
 """""""" numbers
 let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'vista']
 """"""""
-let g:coc_global_extensions = ['coc-pyright','coc-browser', 'coc-explorer', 'coc-sqlfluff', 'coc-json', 'coc-git', 'coc-dictionary', 'coc-css', 'coc-marketplace', 'coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-yank', 'coc-yaml', 'coc-word', 'coc-vimlsp', 'coc-snippets', 'coc-tag', 'coc-html', 'coc-spell-checker', 'coc-html', 'coc-yaml', 'coc-vimlsp', 'coc-just-complete', 'coc-markdownlint', 'coc-html-css-support', 'coc-db', 'coc-htmlhint', 'coc-fzf-preview', 'coc-sh', 'coc-diagnostic', 'coc-rust-analyzer', 'coc-rls', 'coc-marketplace']
+let g:coc_global_extensions = ['coc-pyright','coc-go' , 'coc-sql','coc-browser', 'coc-explorer', 'coc-sqlfluff', 'coc-json', 'coc-git', 'coc-dictionary', 'coc-css', 'coc-marketplace', 'coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-yank', 'coc-yaml', 'coc-word', 'coc-vimlsp', 'coc-snippets', 'coc-tag', 'coc-html', 'coc-spell-checker', 'coc-html', 'coc-yaml', 'coc-vimlsp', 'coc-just-complete', 'coc-markdownlint', 'coc-html-css-support', 'coc-db', 'coc-htmlhint', 'coc-fzf-preview', 'coc-sh', 'coc-diagnostic', 'coc-rust-analyzer', 'coc-rls', 'coc-marketplace', 'coc-ultisnips']
 
 """""""" yoink
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)
@@ -160,14 +159,30 @@ nmap <expr> <c-p> yoink#canSwap() ? '<plug>(YoinkPostPasteSwapForward)' : ':CocC
 set relativenumber
 set numberwidth=4
 """"""""
+let g:vista_default_executive = 'coc'
+let g:vista_finder_alternative_executives = ['coc']
+function! NearestSymbol() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+call airline#parts#define_function('nearest_symbol', 'NearestSymbol')
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
 
 """""""" airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='bubblegum'
 let g:airline_solarized_bg='dark'
-let g:airline#extensions#hunks#enabled=0
-let g:airline#extensions#branch#enabled=0
 set laststatus=2
+
+
+function! AirlineInit()
+  let g:airline_section_a = airline#section#create(['branch'])
+  let g:airline_section_b = ''  
+  let g:airline_section_c = airline#section#create(['nearest_symbol'])  
+  let g:airline_section_x = airline#section#create(['filetype'])
+endfunction
+autocmd VimEnter * call AirlineInit()
+let g:airline_statusline_ontop=1
 """"""""
 
 """""""" gitgutter
@@ -231,11 +246,6 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -253,14 +263,6 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-" NeoVim-only mapping for visual mode scroll
-" Useful on signatureHelp after jump placeholder of snippet expansion
-if has('nvim')
-  vnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#nvim_scroll(1, 1) : "\<C-f>"
-  vnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#nvim_scroll(0, 1) : "\<C-b>"
-endif
-
-
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 
@@ -273,7 +275,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"
 
 function! s:GrepFromSelected(type)
   let saved_unnamed_register = @@
@@ -292,3 +294,6 @@ endfunction
 """"""""""""""""""""
 
 autocmd FileType sql DB b:db = DotenvGet('DATABASE_URL')
+
+" use space to complete the selection in cmd mode
+cnoremap <expr> <space>  wildmenumode()?"\<space>\<BS>":"\<space>"
