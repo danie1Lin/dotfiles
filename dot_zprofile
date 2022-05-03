@@ -9,4 +9,4 @@ if [[ -x rbenv ]] ;then
  export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 fi
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ -d /opt/homebrew/bin ]] && eval "$(/opt/homebrew/bin/brew shellenv)"

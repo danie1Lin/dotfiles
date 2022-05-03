@@ -49,6 +49,6 @@
     "reqwst",
     "tmpl"
   ],
-  "go.goplsPath": "/Users/daniellin/go/bin/gopls",
+  "go.goplsPath": "~/go/bin/gopls",
   "go.goplsUseDaemon": false
 }

@@ -128,9 +128,7 @@ for key ('j') bindkey -M vicmd ${key} history-substring-search-down
 unset key
 # }}} End configuration added by Zim install
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
 # zsh-history-substring-search
-#
 
 # Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
 bindkey '^[[A' history-substring-search-up
@@ -232,7 +230,7 @@ export EDITOR=nvim
 export VISUAL=nvim
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH=$HOME/usr/local/go/bin/:$PATH
+export PATH=$HOME/go/bin/:$PATH
 export PATH=$HOME/bin/:$PATH
 export PATH=/usr/local/opt/rabbitmq/sbin:$PATH
 export PATH="$HOME/bin:/usr/local/opt/qt@5.5/bin:$PATH"
@@ -327,15 +325,16 @@ alias ggp='Gb --show-current git push --set-upstream origin $(Gb --show-current)
 export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 alias rhload='nodemon -e .rs --watch . --exec'
 alias phload='nodemon -e .py --watch . --exec'
-alias chezmoi_update='chezmoi add .zimrc .zshenv .zshrc'
+export ALL_DOT_FILE='.tmux.conf .zprofile .zimrc .zshenv .zshrc .vimrc .config/nvim/coc-settings.json .config/nvim/init.vim .config/nvim/**/*'
+alias chezmoi_save="chezmoi add $ALL_DOT_FILE"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/daniellin/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/daniellin/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/daniellin/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/daniellin/google-cloud-sdk/completion.zsh.inc'; fi
-export PATH=/Users/daniellin/google-cloud-sdk/bin:/usr/local/opt/mysql-client/bin:/Users/daniellin/.local/bin:/Users/daniellin/.rbenv/shims:/usr/local/opt/terraform@0.11/bin:/usr/local/npm_packages/bin:/Users/daniellin/bin:/usr/local/opt/qt@5.5/bin:/usr/local/opt/rabbitmq/sbin:/Users/daniellin/bin/:/Users/daniellin/usr/local/go/bin/:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/daniellin/usr/local/go/bin/:/Users/daniellin/google-cloud-sdk/bin:/usr/local/opt/mysql-client/bin:/Users/daniellin/.local/bin:/Users/daniellin/.rbenv/shims:/usr/local/opt/terraform@0.11/bin:/usr/local/npm_packages/bin:/Users/daniellin/bin:/usr/local/opt/qt@5.5/bin:/usr/local/opt/rabbitmq/sbin:/Users/daniellin/bin/:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/daniellin/go/bin:/Users/daniellin/istio-1.8.1/bin:/Users/daniellin/.local/bin:/Users/daniellin/go/bin:/Users/daniellin/istio-1.8.1/bin:/Users/daniellin/.istio/istio-1.10.2/bin
-GOPATH=/Users/daniellin/go
+export PATH=$HOME/google-cloud-sdk/bin:/usr/local/opt/mysql-client/bin:$HOME/.local/bin:$HOME/.rbenv/shims:/usr/local/opt/terraform@0.11/bin:/usr/local/npm_packages/bin:$HOME/bin:/usr/local/opt/qt@5.5/bin:/usr/local/opt/rabbitmq/sbin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/mysql-client/bin:/usr/local/npm_packages/bin:$HOME/go/bin
+GOPATH=$HOME/go
 
 
 # Carousell

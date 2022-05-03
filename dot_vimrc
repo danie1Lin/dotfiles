@@ -3,6 +3,7 @@
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
+Plug 'github/copilot.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'mfussenegger/nvim-ts-hint-textobject'
@@ -297,3 +298,5 @@ autocmd FileType sql DB b:db = DotenvGet('DATABASE_URL')
 
 " use space to complete the selection in cmd mode
 cnoremap <expr> <space>  wildmenumode()?"\<space>\<BS>":"\<space>"
+nmap <F9> :nohl
+
