@@ -153,8 +153,8 @@ noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
 
 " s{char}{char} to move to {char}{char}
 nmap <leader><leader>f <Plug>(easymotion-overwin-f2)
-map  // <Plug>(easymotion-sn)
-omap // <Plug>(easymotion-tn)
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
 
