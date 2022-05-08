@@ -7,14 +7,19 @@ nmap ss <plug>(SubversiveSubstituteLine)
 nmap s$ <plug>(SubversiveSubstituteToEndOfLine)
 nmap <leader>s <plug>(SubversiveSubstituteRange)
 xmap <leader>s <plug>(SubversiveSubstituteRange)
-nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
-nmap <leader><leader>s <plug>(SubversiveSubstituteRangeNoPrompt)
-xmap <leader><leader>s <plug>(SubversiveSubstituteRangeNoPrompt)
-nmap <leader><leader>ss <plug>(SubversiveSubstituteWordRangeNoPrompt)
-nmap <leader>cs <plug>(SubversiveSubstituteRangeConfirm)
-xmap <leader>cs <plug>(SubversiveSubstituteRangeConfirm)
-nmap <leader>css <plug>(SubversiveSubstituteWordRangeConfirm)
+"nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
+"nmap <leader><leader>s <plug>(SubversiveSubstituteRangeNoPrompt)
+"xmap <leader><leader>s <plug>(SubversiveSubstituteRangeNoPrompt)
+"nmap <leader><leader>ss <plug>(SubversiveSubstituteWordRangeNoPrompt)
+"nmap <leader>cs <plug>(SubversiveSubstituteRangeConfirm)
+"xmap <leader>cs <plug>(SubversiveSubstituteRangeConfirm)
+"nmap <leader>css <plug>(SubversiveSubstituteWordRangeConfirm)
 """"""""
+
+let g:mapleader = "\<Space>"
+let g:maplocalleader = ','
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
 """""""" MY CONFIG
 set clipboard=unnamed 
@@ -23,6 +28,9 @@ nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 """"""""
+
+nnoremap ! :!
+
 
 """"""" weak plugin LOL
 "nnoremap <Up> :echo "arrow is for weak!"<CR>
@@ -131,8 +139,25 @@ nmap <silent> gr <Plug>(coc-references)
 map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
 
+function! s:config_easyfuzzymotion(...) abort
+  return extend(copy({
+  \   'converters': [incsearch#config#fuzzyword#converter()],
+  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
+  \   'is_expr': 0,
+  \   'is_stay': 1
+  \ }), get(a:, 1, {}))
+endfunction
+
+noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
+
 " s{char}{char} to move to {char}{char}
 nmap <leader><leader>f <Plug>(easymotion-overwin-f2)
+map  // <Plug>(easymotion-sn)
+omap // <Plug>(easymotion-tn)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+
 
 " Move to line
 map <Leader>L <Plug>(easymotion-bd-jk)

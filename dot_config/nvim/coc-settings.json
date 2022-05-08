@@ -1,6 +1,10 @@
 {
   "list.source.gfiles.defaultOptions": ["--number-select"],
   "solargraph.diagnostics": true,
+  "list.normalMappings": {
+    "v": "action:vsplit",
+    "s": "action:split"
+  },
   "solargraph.formatting": true,
   "solargraph.logLevel": "debug",
   "solargraph.trace.server": "verbose",
@@ -50,5 +54,9 @@
     "tmpl"
   ],
   "go.goplsPath": "~/go/bin/gopls",
-  "go.goplsUseDaemon": false
+  "go.goplsUseDaemon": false,
+  "go.tags": {
+    "transform": "camelcase",
+    "options": ""
+  }
 }
