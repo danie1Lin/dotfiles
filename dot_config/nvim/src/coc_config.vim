@@ -40,7 +40,6 @@ function! s:select_current_word()
   return "\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 endfunc
 
-nmap <silent> <C-c> <Plug>(coc-cursors-position)
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)

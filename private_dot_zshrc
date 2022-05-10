@@ -340,21 +340,3 @@ GOPATH=$HOME/go
 # Carousell
 export LOCALENV_PATH=${HOME}/carousell-localenv
 export PATH="${LOCALENV_PATH}/localenv:$PATH"
-
-function ls_kv() {
-  server=$1
-  query="Key"
-  for item in ${@[@]:2}; do
-    query+=".*$item"
-  done
-  gron ${server}/v1/kv/config?recurse=true | grep -e ${query} -A 5|egrep '(Key|Value)' |gron -u | jq -r  'del(.[]|nulls)|map({k: .Key, v: .Value | @base64d})'
-}
-
-function ls_key() {
-  server=$1
-  query="Key"
-  for item in ${@[@]:2}; do
-    query+=".*$item"
-  done
-  gron ${server}/v1/kv/config?recurse=true | grep -e ${query} |gron -u | jq -r  'del(.[]|nulls)|map(.Key)'
-}

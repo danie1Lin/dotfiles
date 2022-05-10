@@ -12,3 +12,7 @@ augroup myvimrc
     au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc,init.vim,*.vim so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
 
+lua <<EOF
+require 'term'
+EOF
+
