@@ -7,6 +7,7 @@ Plug 'github/copilot.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'mfussenegger/nvim-ts-hint-textobject'
+Plug 'akinsho/toggleterm.nvim', {'tag': 'v1.*'}
 " For puppet
 Plug 'mrk21/yaml-vim'
 Plug 'rodjek/vim-puppet'
@@ -131,6 +132,7 @@ let g:instant_markdown_slow = 1
 "let g:instant_markdown_autoscroll = 0
 "let g:instant_markdown_port = 8888
 "let g:instant_markdown_python = 1
+
 """"""""
 autocmd FileType python let b:coc_root_patterns = ['go.mod','.git', '.env', 'venv']
 """""""" numbers
@@ -169,7 +171,6 @@ function! NearestSymbol() abort
 endfunction
 call airline#parts#define_function('nearest_symbol', 'NearestSymbol')
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-
 
 """""""" airline
 let g:airline#extensions#tabline#enabled = 1

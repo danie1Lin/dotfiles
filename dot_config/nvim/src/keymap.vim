@@ -205,3 +205,5 @@ function! s:show_documentation()
 endfunction
 
 nmap <space>e <Cmd>CocCommand explorer<CR>
+
+tnoremap <Esc><Esc> <C-\><C-n>
