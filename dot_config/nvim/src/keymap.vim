@@ -73,10 +73,6 @@ nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
 " let g:coc_node_args = ['--nolazy', '--inspect-brk=6045'] 
 
 
-"""""""""""""""""""" COC plugins
-vnoremap <leader>g :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
-nnoremap <leader>g :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@
-
 " Formatting selected code.
 xmap <leader>cf  <Plug>(coc-format-selected)
 nmap <leader>cf  <Plug>(coc-format-selected)
@@ -125,8 +121,6 @@ omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
 omap ag <Plug>(coc-git-chunk-outer)
 xmap ag <Plug>(coc-git-chunk-outer)
-
-nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
 
 nmap <Leader>rn <Plug>(coc-rename)
 " GoTo code navigation.
@@ -204,4 +198,4 @@ function! s:show_documentation()
   endif
 endfunction
 
-nmap <space>e <Cmd>CocCommand explorer<CR>
+nmap <leader>e <Cmd>CocCommand explorer<CR>
