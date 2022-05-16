@@ -137,7 +137,7 @@ autocmd FileType python let b:coc_root_patterns = ['go.mod','.git', '.env', 'ven
 """""""" numbers
 let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'vista']
 """"""""
-let g:coc_global_extensions = ['coc-pyright','coc-go' , 'coc-sql','coc-browser', 'coc-explorer', 'coc-sqlfluff', 'coc-json', 'coc-git', 'coc-dictionary', 'coc-css', 'coc-marketplace', 'coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-yank', 'coc-yaml', 'coc-word', 'coc-vimlsp', 'coc-snippets', 'coc-tag', 'coc-html', 'coc-spell-checker', 'coc-html', 'coc-yaml', 'coc-vimlsp', 'coc-just-complete', 'coc-markdownlint', 'coc-html-css-support', 'coc-db', 'coc-htmlhint', 'coc-fzf-preview', 'coc-sh', 'coc-diagnostic', 'coc-rust-analyzer', 'coc-rls', 'coc-marketplace', 'coc-ultisnips']
+let g:coc_global_extensions = ['coc-pyright','coc-go' ,'coc-browser', 'coc-explorer', 'coc-json', 'coc-git', 'coc-dictionary', 'coc-css', 'coc-marketplace', 'coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-yank', 'coc-yaml', 'coc-word', 'coc-vimlsp', 'coc-snippets', 'coc-tag', 'coc-html', 'coc-spell-checker', 'coc-html', 'coc-yaml', 'coc-vimlsp', 'coc-just-complete', 'coc-markdownlint', 'coc-html-css-support', 'coc-db', 'coc-htmlhint', 'coc-fzf-preview', 'coc-sh', 'coc-diagnostic', 'coc-rust-analyzer', 'coc-rls', 'coc-marketplace', 'coc-ultisnips']
 
 """""""" yoink
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)
